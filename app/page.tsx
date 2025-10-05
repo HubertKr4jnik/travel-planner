@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import Sidebar from "./sidebar";
 import axios from "axios";
 import PlaceElement from "./placeElement";
+import "leaflet/dist/leaflet.css";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("./map"), {
+  ssr: false,
+});
 
 export default function Home() {
   const getLocalDate = () => {
@@ -17,14 +23,14 @@ export default function Home() {
   const [tripStartDate, setTripStartDate] = useState(getLocalDate());
   const [tripEndDate, setTripEndDate] = useState(getLocalDate());
 
-  const [elements, setElements] = useState({ elements: {} });
+  const [elements, setElements] = useState({});
 
   useEffect(() => {
     console.log(elements);
   }, [elements]);
 
   return (
-    <div className="min-h-screen flex flex-row">
+    <div className="max-h-screen h-screen flex flex-row">
       <Sidebar elements={elements} setElements={setElements}></Sidebar>
       <div className="relative flex flex-col w-full border border-gray-700 rounded m-4 p-4">
         <div className="flex place-items-center justify-between flex-wrap">
@@ -63,7 +69,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="flex flex-row w-full">
+        {/* <div className="flex flex-row w-full">
           <div className="flex flex-col w-fit border mt-4 border-gray-700 rounded">
             <div className="flex flex-row place-items-center justify-between bg-emerald-400 rounded-t px-2">
               <span>On time</span>
@@ -75,14 +81,16 @@ export default function Home() {
               className="p-2 border border-gray-600 rounded-b"
             />
           </div>
-        </div>
+        </div> */}
+        <Map places={elements}></Map>
         <p className="mt-4 text-lg">Day 1</p>
-        <div className="h-full flex flex-col w-full mt-2">
-          {Object.entries(elements.elements).map(([timestamp, element]) => {
+        <div className="h-full flex flex-col w-full mt-2 gap-4 overflow-y-auto">
+          {Object.entries(elements).map(([timestamp, element]) => {
             return (
               <PlaceElement
                 key={timestamp}
                 elements={elements}
+                setElements={setElements}
                 timestamp={timestamp}
               />
             );
