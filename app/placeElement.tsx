@@ -204,12 +204,12 @@ export default function PlaceElement({
         {placeBoundingBox.length == 4 ? (
           <iframe
             className="w-full h-full rounded"
-            src={`http://www.openstreetmap.org/export/embed.html?bbox=${placeBoundingBox[2]},${placeBoundingBox[0]},${placeBoundingBox[3]},${placeBoundingBox[1]}&layer=mapnik&marker=${placeLat},${placeLon}`}
+            src={`https://www.openstreetmap.org/export/embed.html?bbox=${placeBoundingBox[2]},${placeBoundingBox[0]},${placeBoundingBox[3]},${placeBoundingBox[1]}&layer=mapnik&marker=${placeLat},${placeLon}`}
           ></iframe>
         ) : (
           <iframe
             className="w-full h-full rounded"
-            src={`http://www.openstreetmap.org/export/embed.html?layer=mapnik`}
+            src={`https://www.openstreetmap.org/export/embed.html?layer=mapnik`}
           ></iframe>
         )}
       </div>
