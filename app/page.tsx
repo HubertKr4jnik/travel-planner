@@ -13,11 +13,16 @@ const Map = dynamic(() => import("./map"), {
 export default function Home() {
   const getLocalDate = () => {
     const date = new Date();
-    const localDateString = date.toLocaleString().split(",")[0];
-    let [localDay, localMonth, localYear] = localDateString.split(".");
-    localDay = localDay.length < 2 ? "0" + localDay : localDay;
-    localMonth = localMonth.length < 2 ? "0" + localMonth : localMonth;
-    return `${localYear}-${localMonth}-${localDay}`;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+
+    // const localDateString = date.toLocaleString().split(",")[0];
+    // let [localDay, localMonth, localYear] = localDateString.split(".");
+    // localDay = localDay.length < 2 ? "0" + localDay : localDay;
+    // localMonth = localMonth.length < 2 ? "0" + localMonth : localMonth;
+    // return `${localYear}-${localMonth}-${localDay}`;
   };
 
   const [tripStartDate, setTripStartDate] = useState(getLocalDate());
